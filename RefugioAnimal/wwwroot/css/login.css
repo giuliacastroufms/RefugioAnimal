@@ -1,0 +1,51 @@
+﻿.container {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.login-background {
+    max-width: 80%;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.ipt-login {
+    font-weight: 600;
+    background: none;
+    height: 40px !important;
+}
+
+.ipt-login::placeholder {
+    color: #60606040;
+}
+
+.ipt-login:focus {
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #A8D4B9;
+    color: #F8F9F1;
+    font-weight: 700;
+    font-size: 24px;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #70c992;
+}
+
+.border {
+    border-color: #333333 !important;
+}
+
+p {
+    color: #000000C4;
+}
+
+p > a {
+    color: #396A03;
+}

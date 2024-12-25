@@ -1,7 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using RefugioAnimal.Data;
+using RefugioAnimal.Repositories;
+using RefugioAnimal.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Repositories
+builder.Services.AddScoped<AnimalRepository>();
+
+// Services
+builder.Services.AddScoped<AnimalService>();
+
+builder.Services.AddDbContext<AnimalRefugeDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

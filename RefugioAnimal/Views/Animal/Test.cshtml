@@ -1,0 +1,69 @@
+﻿@using RefugioAnimal.Models.DTOs
+@model TestViewModel
+@{
+    ViewData["Title"] = "Test Endpoints";
+}
+
+<h2>Test Endpoints</h2>
+
+<!-- 1. View All Animals -->
+<h3>1. View All Animals</h3>
+<form method="get" action="@Url.Action("ViewAllAnimals", "Animal")">
+    <button type="submit">View All Animals</button>
+</form>
+
+<div>
+    @if (Model is not null && Model.Animals is not null && Model.Animals.Count > 0)
+    {
+        <ul>
+            @foreach (var animal in Model.Animals)
+            {
+                <li> Id - @animal.Id </li>
+                <li> Name - @animal.Name </li>
+                <li> Description - @animal.Description </li>
+                <li> Specie - @animal.Specie </li>
+                <li> AdoptionStatus - @animal.AdoptionStatus </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No animals found.</p>
+    }
+</div>
+
+<!-- 2. Create New Animal -->
+<h3>2. Create New Animal</h3>
+<form id="createAnimalForm" method="post" action="@Url.Action("CreateAnimal", "Animal")">
+    <input type="text" name="Name" id="createName" placeholder="Name" required />
+    <input type="text" name="Description" id="createDescription" placeholder="Description" />
+    <select name="Specie" id="createBreedId">
+        <option value="Cachorro">Cachorro</option>
+        <option value="Gato">Gato</option>
+    </select>
+    <button type="submit">Create Animal</button>
+</form>
+
+<div id="createResult"></div>
+
+<!-- 3. Edit Animal -->
+<h3>3. Edit Animal</h3>
+<form method="post" action="@Url.Action("EditAnimal", "Animal")">
+    <input type="number" name="Id" id="editId" placeholder="Animal ID" required />
+    <input type="text" name="Name" id="editName" placeholder="Name" />
+    <input type="text" name="Description" id="editDescription" placeholder="Description" />
+    <select name="Specie" id="editSpecie">
+        <option value="Cachorro">Cachorro</option>
+        <option value="Gato">Gato</option>
+    </select>
+    <button type="submit">Edit Animal</button>
+</form>
+<div id="editResult"></div>
+
+<!-- 4. Delete Animal -->
+<h3>4. Delete Animal</h3>
+<form method="post" action="@Url.Action("DeleteAnimal", "Animal")">
+    <input type="number" name="Id" id="deleteId" placeholder="Animal ID" required />
+    <button type="submit">Delete Animal</button>
+</form>
+<div id="deleteResult"></div>

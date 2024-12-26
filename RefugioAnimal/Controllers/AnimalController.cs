@@ -13,22 +13,23 @@ namespace RefugioAnimal.Controllers
         {
             _animalService = animalService;
         }
-
-        [HttpGet]
-        public async Task<IActionResult> ViewAllAnimals()
+        public async Task<IActionResult> Index()
         {
             var animals = await _animalService.GetAllAnimalsAsync();
-
             var viewModel = new TestViewModel
             {
                 Animals = animals.ToList()
             };
 
-            // Passa o ViewModel para a View
-            return View("Test", viewModel);
+            return View(viewModel);
         }
 
-        // Método para criar um animal
+        [HttpGet] public async Task<IActionResult> GetAllAnimals() 
+        { 
+            var animals = await _animalService.GetAllAnimalsAsync();
+            return Json(animals); 
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAnimal(CreateAnimalDto dto)
         {
@@ -40,7 +41,6 @@ namespace RefugioAnimal.Controllers
             return Json(new { success = false, message = "Erro ao criar animal." });
         }
 
-        // Método para editar um animal
         [HttpPost]
         public async Task<IActionResult> EditAnimal(long id, UpdateAnimalDto dto)
         {
@@ -55,7 +55,6 @@ namespace RefugioAnimal.Controllers
             }
         }
 
-        // Método para excluir um animal
         [HttpPost]
         public async Task<IActionResult> DeleteAnimal(long id)
         {
@@ -70,10 +69,5 @@ namespace RefugioAnimal.Controllers
             }
         }
 
-        // Método para a tela de teste
-        public IActionResult Test()
-        {
-            return View();
-        }
     }
 }

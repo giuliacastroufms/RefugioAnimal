@@ -1,62 +1,34 @@
 ﻿@using RefugioAnimal.Models.DTOs
 @model AnimalViewModel
+
 @{
-    ViewData["Title"] = "Test Endpoints";
+    ViewData["Title"] = "Animals";
 }
 
 <div class="container">
-    <div class="row px-5">
-        <div class="d-flex justify-content-between">
-            <h3>Gatos</h3>
-            <p class="px-5">Ver mais...</p>
-        </div>
-        @foreach (var item in Model.Animals.Where(a => a.Specie.Equals("Cat")))
+    @if (Model.Cats is not null && Model.Cats.Any())
+    {
+        @await Html.PartialAsync("_AnimalList", Model.Cats, new ViewDataDictionary(ViewData)
         {
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card">
-                    @if(item.Photos is not null && item.Photos.Count > 0)
-                    {
-                        <img src="@item.Photos[0]" class="card-img" alt="Imagem">
-                    }
-                    else {
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Name</h5>
-                            <p class="card-text">@item.Description</p>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    </div>
+            { "CardTitle", "Gatos" },
+            { "ViewMoreLink", "/cats" },
+            { "MaxItems", Model.Cats.Count }
+            })
+        }   
 
-    <div class="row px-5">
-        <div class="d-flex justify-content-between">
-            <h3>Cachorros</h3>
-        <p class="px-5">Ver mais...</p>
-        </div>
-        @foreach (var item in Model.Animals.Where(a => a.Specie.Equals("Dog")))
+    @if (Model.Dogs is not null && Model.Dogs.Any())
+    {
+        @await Html.PartialAsync("_AnimalList", Model.Dogs, new ViewDataDictionary(ViewData)
         {
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card">
-                    @if (item.Photos is not null && item.Photos.Count > 0)
-                    {
-                        <img src="@item.Photos[0]" class="card-img" alt="Imagem">
-                    }
-                    else {
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Name</h5>
-                            <p class="card-text">@item.Description</p>
-                        </div>
-                    }
-
-                </div>
-            </div>
-        }
-    </div>
+            { "CardTitle", "Cachorros" },
+            { "ViewMoreLink", "/dogs" },
+            { "MaxItems", Model.Dogs.Count }
+        })
+    }
 </div>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
 }
 
 @section Scripts {

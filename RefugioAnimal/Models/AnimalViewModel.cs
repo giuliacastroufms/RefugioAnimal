@@ -4,6 +4,7 @@ namespace RefugioAnimal.Models
 {
     public class AnimalViewModel
     {
-        public List<AnimalDto>? Animals { get; set; } 
+        public List<AnimalDto>? Cats { get; set; }
+        public List<AnimalDto>? Dogs { get; set; }
     }
 }

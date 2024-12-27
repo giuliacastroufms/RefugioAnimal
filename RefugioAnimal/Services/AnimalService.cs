@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RefugioAnimal.Models.DTOs;
 using RefugioAnimal.Models.Entities;
+using RefugioAnimal.Models.Enums;
 using RefugioAnimal.Repositories;
 
 namespace RefugioAnimal.Services
@@ -51,6 +52,17 @@ namespace RefugioAnimal.Services
                 throw new KeyNotFoundException("Animal não encontrado.");
 
             await _repository.DeleteAsync(id);
+        }
+
+        public async Task<List<AnimalDto>> GetAnimalsBySpecieAsync(Species species, int maxItems)
+        {
+            var animals = await _repository.GetAllAsync();
+            var filteredAnimals = animals
+                .Where(a => a.Species.Equals(species) )
+                .Take(maxItems)
+                .ToList();
+
+            return _mapper.Map<List<AnimalDto>>(filteredAnimals);
         }
     }
 }

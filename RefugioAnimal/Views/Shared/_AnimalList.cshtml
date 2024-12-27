@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RefugioAnimal.Models.DTOs.AnimalDto>
+@{
+    var title = ViewData["CardTitle"] as string ?? "Animais";
+    var viewMoreLink = ViewData["ViewMoreLink"] as string ?? "#";
+    var maxItems = ViewData["MaxItems"] as int? ?? int.MaxValue;
+    var limitedModel = Model.Take(maxItems);
+}
+
+<div class="row px-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="card-title">@title</h4>
+        <a href="@viewMoreLink" class="pe-5 card-link">Ver mais...</a>
+    </div>
+    @if (limitedModel.Any())
+    {
+        @foreach (var item in limitedModel)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-img-container">
+                        @if (item.Photos is not null && item.Photos.Count > 0)
+                        {
+                            <img src="@item.Photos.First()" class="card-img-top" alt="Imagem">
+                        }
+                    </div>
+                    <div class="card-overlay">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center">Nenhum animal encontrado.</p>
+    }
+</div>

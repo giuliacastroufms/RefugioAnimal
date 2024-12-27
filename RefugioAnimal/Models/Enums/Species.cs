@@ -2,8 +2,8 @@
 {
     public enum Species
     {
-        Cachorro,
-        Gato,
-        Outros
+        Dog,
+        Cat,
+        Others
     }
 }

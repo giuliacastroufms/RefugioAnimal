@@ -2,7 +2,7 @@
 
 namespace RefugioAnimal.Models
 {
-    public class TestViewModel
+    public class AnimalViewModel
     {
         public List<AnimalDto>? Animals { get; set; } 
     }

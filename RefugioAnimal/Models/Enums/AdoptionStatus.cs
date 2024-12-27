@@ -2,7 +2,7 @@
 {
     public enum AdoptionStatus
     {
-        Disponível,
-        Adotado
+        Available,
+        Adopted
     }
 }

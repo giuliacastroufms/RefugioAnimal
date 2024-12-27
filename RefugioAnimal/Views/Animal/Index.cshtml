@@ -1,66 +1,63 @@
 ﻿@using RefugioAnimal.Models.DTOs
-@model TestViewModel
+@model AnimalViewModel
 @{
     ViewData["Title"] = "Test Endpoints";
 }
 
-<h2>Test Endpoints</h2>
+<div class="container">
+    <div class="row px-5">
+        <div class="d-flex justify-content-between">
+            <h3>Gatos</h3>
+            <p class="px-5">Ver mais...</p>
+        </div>
+        @foreach (var item in Model.Animals.Where(a => a.Specie.Equals("Cat")))
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    @if(item.Photos is not null && item.Photos.Count > 0)
+                    {
+                        <img src="@item.Photos[0]" class="card-img" alt="Imagem">
+                    }
+                    else {
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
 
-<h3>1. Get All Animals</h3>
-<button id="getAllAnimalsButton">Get All Animals</button>
+    <div class="row px-5">
+        <div class="d-flex justify-content-between">
+            <h3>Cachorros</h3>
+        <p class="px-5">Ver mais...</p>
+        </div>
+        @foreach (var item in Model.Animals.Where(a => a.Specie.Equals("Dog")))
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    @if (item.Photos is not null && item.Photos.Count > 0)
+                    {
+                        <img src="@item.Photos[0]" class="card-img" alt="Imagem">
+                    }
+                    else {
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                    }
 
-<div id="animalsList">
-    @if (Model is not null && Model.Animals is not null && Model.Animals.Count > 0)
-    {
-        <ul>
-            @foreach (var animal in Model.Animals)
-            {
-                <li> Id - @animal.Id </li>
-                <li> Name - @animal.Name </li>
-                <li> Description - @animal.Description </li>
-                <li> Specie - @animal.Specie </li>
-                <li> AdoptionStatus - @animal.AdoptionStatus </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>No animals found.</p>
-    }
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
-<h3>2. Create New Animal</h3>
-<form id="createAnimalForm">
-    <input type="text" name="Name" id="createName" placeholder="Name" required />
-    <input type="text" name="Description" id="createDescription" placeholder="Description" />
-    <select name="Specie" id="createSpecie">
-        <option value="Cachorro">Cachorro</option>
-        <option value="Gato">Gato</option>
-    </select>
-    <button type="submit">Create Animal</button>
-</form>
-
-<div id="createResult"></div>
-
-<h3>3. Edit Animal</h3>
-<form id="editAnimalForm">
-    <input type="number" name="Id" id="editId" placeholder="Animal ID" required />
-    <input type="text" name="Name" id="editName" placeholder="Name" />
-    <input type="text" name="Description" id="editDescription" placeholder="Description" />
-    <select name="Specie" id="editSpecie">
-        <option value="Cachorro">Cachorro</option>
-        <option value="Gato">Gato</option>
-    </select>
-    <button type="submit">Edit Animal</button>
-</form>
-<div id="editResult"></div>
-
-<h3>4. Delete Animal</h3>
-<form id="deleteAnimalForm">
-    <input type="number" name="Id" id="deleteId" placeholder="Animal ID" required />
-    <button type="submit">Delete Animal</button>
-</form>
-<div id="deleteResult"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
+}
 
 @section Scripts {
     <script src="~/js/animal.js"></script>

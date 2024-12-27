@@ -16,7 +16,7 @@ namespace RefugioAnimal.Controllers
         public async Task<IActionResult> Index()
         {
             var animals = await _animalService.GetAllAnimalsAsync();
-            var viewModel = new TestViewModel
+            var viewModel = new AnimalViewModel
             {
                 Animals = animals.ToList()
             };

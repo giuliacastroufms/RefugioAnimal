@@ -16,13 +16,17 @@ namespace RefugioAnimal.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 4);
-            var dogs = await _animalService.GetAnimalsBySpecieAsync(Species.Dog, 8);
+            var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 4, 0);
+            var dogs = await _animalService.GetAnimalsBySpecieAsync(Species.Dog, 8, 0);
+            var adoptedAnimals = await _animalService.GetAdoptedAnimalsAsync(4);
+            var randomAnimal = await _animalService.GetRandomAnimalAsync();
 
             var viewModel = new AnimalViewModel
             {
                 Cats = cats,
-                Dogs = dogs
+                Dogs = dogs,
+                AdoptedAnimals = adoptedAnimals,
+                RandomAnimal = randomAnimal
             };
 
             return View(viewModel);

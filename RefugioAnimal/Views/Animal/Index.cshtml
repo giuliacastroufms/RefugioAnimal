@@ -6,28 +6,121 @@
 }
 
 <div class="container">
+
+    @if(Model.RandomAnimal is not null)
+    {
+        <div class="d-flex px-5 animal-carousel w-100 mb-5">
+            <div class="col-5 pb-5 align-self-center">
+
+                <h2 class="fw-bold mt-5 pt-5">@Model.RandomAnimal.Name</h2>
+
+                @if (!string.IsNullOrWhiteSpace(Model.RandomAnimal.BreedDescription))
+                {
+                    <span class="fw-bolder">Raça: @Model.RandomAnimal.BreedDescription</span>
+                }
+
+                <p class="mt-4 mb-3">@Model.RandomAnimal.Description</p>
+
+                <button type="button" class="btn btn-dark w-50">Adota</button>
+            </div>
+
+            <div class="col-7 px-5">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @{
+                            bool isFirst = true;
+                        }
+                        @foreach (var photo in Model.RandomAnimal.Photos)
+                        {
+                            <div class="carousel-item @(isFirst ? "active" : "")">
+                                <img src="@photo" class="d-block carousel-img w-100" alt="Foto do - @Model.RandomAnimal.Name">
+                            </div>
+                            isFirst = false;
+                        }
+                    </div>
+                    @if (Model.RandomAnimal.Photos.Count > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>   
+    }
+
     @if (Model.Cats is not null && Model.Cats.Any())
     {
-        @await Html.PartialAsync("_AnimalList", Model.Cats, new ViewDataDictionary(ViewData)
-        {
-            { "CardTitle", "Gatos" },
-            { "ViewMoreLink", "/cats" },
-            { "MaxItems", Model.Cats.Count }
+        <div class="row px-5 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Gatos</h4>
+                <a href="/cats" class="pe-5 card-link">Ver mais...</a>
+            </div>
+            @await Html.PartialAsync("_AnimalList", Model.Cats, new ViewDataDictionary(ViewData)
+            {
+                { "MaxItems", Model.Cats.Count }
             })
-        }   
+        </div>
+    }
 
     @if (Model.Dogs is not null && Model.Dogs.Any())
     {
-        @await Html.PartialAsync("_AnimalList", Model.Dogs, new ViewDataDictionary(ViewData)
-        {
-            { "CardTitle", "Cachorros" },
-            { "ViewMoreLink", "/dogs" },
-            { "MaxItems", Model.Dogs.Count }
-        })
+        <div class="row px-5 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Cachorros</h4>
+                <a href="/dogs" class="pe-5 card-link">Ver mais...</a>
+            </div>
+            @await Html.PartialAsync("_AnimalList", Model.Dogs, new ViewDataDictionary(ViewData)
+            {
+                { "MaxItems", Model.Dogs.Count }
+            })
+        </div>
+    }
+
+    @if (Model.AdoptedAnimals is not null && Model.AdoptedAnimals.Any())
+    {
+        <div class="row px-5 d-flex mb-3">
+            <div class="col-md-6 justify-content-center">
+                <h4 class="card-title">Animais Adotados</h4>
+                <p>Adotar é transformar vidas! Cada um dos animais desta seção encontrou um lar cheio de amor e carinho, graças a pessoas incríveis que abriram seus corações para acolhê-los. Essas histórias de adoção são provas vivas de que a compaixão e a solidariedade podem mudar o mundo, um animal de cada vez. Inspire-se com essas jornadas de amizade e descubra como você também pode fazer parte dessa transformação adotando ou apoiando a causa.</p>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    @foreach (var item in Model.AdoptedAnimals)
+                    {
+                        <div class="col-6 mb-4">
+                            <div class="card">
+                                <div class="card-img-container">
+                                    @if (item.Photos is not null && item.Photos.Count > 0)
+                                    {
+                                        <img src="@item.Photos.First()" class="card-img-top" alt="Imagem">
+                                    }
+                                </div>
+                                <div class="card-overlay">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-center">Nenhum animal encontrado.</p>
     }
 </div>
 
 @section Styles {
+    <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
 }
 

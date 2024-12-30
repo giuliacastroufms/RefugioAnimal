@@ -12,6 +12,7 @@ namespace RefugioAnimal.Mappings
             CreateMap<Animal, AnimalDto>()
                 .ForMember(dest => dest.Specie, opt => opt.MapFrom(src => src.Species.ToString()))
                 .ForMember(dest => dest.AdoptionStatus, opt => opt.MapFrom(src => src.AdoptionStatus.ToString()))
+                .ForMember(dest => dest.BreedDescription, opt => opt.MapFrom(src => src.Breed != null ? src.Breed.Description : null))
                 .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos.Select(p => p.Photo).ToList()));
 
             CreateMap<CreateAnimalDto, Animal>()

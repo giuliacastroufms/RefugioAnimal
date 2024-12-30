@@ -1,4 +1,4 @@
-INSERT INTO AnimalPhoto (AnimalId, Photo)
+INSERT INTO AnimalPhotos (AnimalId, Photo)
 VALUES 
 -- Fotos dos gatos
 (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSESdo0y1e8eCTq5dsTk74ZE2jhqIduksHstw&s'),

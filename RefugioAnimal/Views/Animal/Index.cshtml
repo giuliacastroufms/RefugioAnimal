@@ -59,7 +59,7 @@
         <div class="row px-5 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Gatos</h4>
-                <a href="/cats" class="pe-5 card-link">Ver mais...</a>
+                <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Cats">Ver mais...</a>
             </div>
             @await Html.PartialAsync("_AnimalList", Model.Cats, new ViewDataDictionary(ViewData)
             {
@@ -73,7 +73,7 @@
         <div class="row px-5 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Cachorros</h4>
-                <a href="/dogs" class="pe-5 card-link">Ver mais...</a>
+                <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Dogs">Ver mais...</a>
             </div>
             @await Html.PartialAsync("_AnimalList", Model.Dogs, new ViewDataDictionary(ViewData)
             {

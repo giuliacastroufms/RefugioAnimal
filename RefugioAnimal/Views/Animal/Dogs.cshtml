@@ -1,0 +1,30 @@
+﻿@using RefugioAnimal.Models
+@model DogsViewModel
+
+@{
+    ViewData["Title"] = "Dogs";
+}
+
+<div class="container">
+    <div class="row px-5 mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">Cachorros</h4>
+        </div>
+
+        @if (Model.Dogs != null && Model.Dogs.Any())
+        {
+            @await Html.PartialAsync("_AnimalList", Model.Dogs, new ViewDataDictionary(ViewData)
+        {
+        { "MaxItems", Model.Dogs.Count }
+        })
+        }
+        else
+        {
+            <p class="text-center">Nenhum cachorro encontrado.</p>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
+}

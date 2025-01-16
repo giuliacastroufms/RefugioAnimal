@@ -1,0 +1,19 @@
+﻿@page
+@using RefugioAnimal.Models.DTOs
+@model AnimalSpeciesViewModel
+@{
+//	ViewData["Title"] = "Especies";
+}
+
+<div class="text-center">
+	<h4>Espécies Para Adoção</h4>
+	<p>
+		Os cachorros (**Canis lupus familiaris**) são mamíferos domesticados há mais de 15 mil anos, conhecidos por sua lealdade, inteligência e habilidades sensoriais, especialmente o olfato apurado. Com mais de 300 raças, variam em tamanho, aparência e temperamento, podendo ser cães de trabalho, esportistas ou de companhia. Além de oferecerem amor incondicional, eles promovem benefícios à saúde física e mental dos humanos. São verdadeiros companheiros que conquistaram o título de "melhor amigo do homem". 🐾❤️
+	</p>
+	<p>Os gatos (**Felis catus**) são mamíferos domesticados há cerca de 9 mil anos, conhecidos por sua independência, agilidade e sentidos aguçados, como visão noturna e audição sensível. Existem mais de 70 raças, mas todos compartilham instintos de caçador e comportamentos curiosos. Adaptáveis e higiênicos, são ótimos companheiros, promovendo bem-estar e se adequando bem a pequenos espaços. Apesar de independentes, criam laços afetivos e demonstram carinho de formas únicas. 🐾❤️</p>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
+}

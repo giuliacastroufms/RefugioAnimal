@@ -55,5 +55,20 @@ namespace RefugioAnimal.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> AnimalSpecies()
+        {
+            var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 1, 0);
+            var dogs = await _animalService.GetAnimalsBySpecieAsync(Species.Dog, 1, 0);
+
+            var viewModel = new AnimalSpeciesViewModel
+            {
+                Cats = cats,
+                Dogs = dogs
+            };
+
+            return View(viewModel);
+        }
+
     }
 }

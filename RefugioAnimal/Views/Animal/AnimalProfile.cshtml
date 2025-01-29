@@ -1,0 +1,14 @@
+﻿
+@using RefugioAnimal.Models
+@model AnimalProfileViewModel
+
+@{
+    	ViewData["Title"] = "Animal";
+}
+
+<h1>@Model.Animal.Name</h1>
+
+@if(Model.Animal.Name == "Garfield")
+{
+<h2>@Model.Animal.Specie</h2>
+}

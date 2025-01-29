@@ -4,28 +4,27 @@
     var limitedModel = Model.Take(maxItems);
 }
 
-    @if (limitedModel.Any())
+@if (limitedModel.Any())
+{
+    @foreach (var item in limitedModel)
     {
-        @foreach (var item in limitedModel)
-        {
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card">
-                    <div class="card-img-container">
-                        @if (item.Photos is not null && item.Photos.Count > 0)
-                        {
-                            <img src="@item.Photos.First()" class="card-img-top" alt="Imagem">
-                        }
-                    </div>
-                    <div class="card-overlay">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">@item.Description</p>
-                    </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card" onclick="location.href='@Url.Action("AnimalProfile", "Animal", new { animalId = item.Id })';" style="cursor: pointer;">
+                <div class="card-img-container">
+                    @if (item.Photos != null && item.Photos.Count > 0)
+                    {
+                        <img src="@item.Photos.First()" class="card-img-top" alt="Imagem">
+                    }
                 </div>
-
+                <div class="card-overlay">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                </div>
             </div>
-        }
+        </div>
     }
-    else
-    {
-        <p class="text-center">Nenhum animal encontrado.</p>
-    }
+}
+else
+{
+    <p class="text-center">Nenhum animal encontrado.</p>
+}

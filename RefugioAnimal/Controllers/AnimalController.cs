@@ -70,5 +70,22 @@ namespace RefugioAnimal.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> AnimalProfile(long animalId)
+        {
+            var animal = await _animalService.GetAnimalByIdAsync(animalId);
+
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AnimalProfileViewModel
+            {
+                Animal = animal
+            };
+
+            return View(viewModel);
+
+        }
     }
 }

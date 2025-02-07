@@ -1,0 +1,21 @@
+﻿.container {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.login-background {
+    max-width: 80%;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 36px;
+}
+
+.border {
+    border-color: #333333 !important;
+}
+
+    p > a {
+        color: #396A03;
+    }

@@ -17,10 +17,14 @@ namespace RefugioAnimal.Services
             _mapper = mapper;
         }
 
-        public async Task<List<AnimalDto>> GetAllAnimalsAsync()
+        public async Task<List<AnimalDto>> GetAllAnimalsAsync(int maxItems, AdoptionStatus adoptionStatus)
         {
             var animals = await _repository.GetAllAsync();
-            return _mapper.Map<List<AnimalDto>>(animals);
+            var filteredAnimals = animals
+                .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
+                .Take(maxItems)
+                .ToList();
+            return _mapper.Map<List<AnimalDto>>(filteredAnimals);
         }
 
         public async Task<AnimalDto?> GetAnimalByIdAsync(long id)

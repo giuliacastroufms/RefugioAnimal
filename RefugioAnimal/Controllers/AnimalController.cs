@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RefugioAnimal.Models;
+using RefugioAnimal.Models.Entities;
 using RefugioAnimal.Models.Enums;
 using RefugioAnimal.Services;
 

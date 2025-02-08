@@ -17,13 +17,22 @@ namespace RefugioAnimal.Services
             _mapper = mapper;
         }
 
-        public async Task<List<AnimalDto>> GetAllAnimalsAsync(int maxItems, AdoptionStatus adoptionStatus)
+        public async Task<List<AnimalDto>> GetAllAnimalsAsync(AnimalFilterDto input)
         {
             var animals = await _repository.GetAllAsync();
-            var filteredAnimals = animals
-                .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
-                .Take(maxItems)
+            
+            var filteredAnimals = animals.AsQueryable();
+
+            if (input.AdoptionStatus is not null)
+                filteredAnimals = filteredAnimals.Where(a => a.AdoptionStatus.Equals(input.AdoptionStatus));
+
+            filteredAnimals
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount)
                 .ToList();
+
+            //falta implementar o sort
+
             return _mapper.Map<List<AnimalDto>>(filteredAnimals);
         }
 

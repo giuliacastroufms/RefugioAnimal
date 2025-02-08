@@ -20,21 +20,19 @@ namespace RefugioAnimal.Services
         public async Task<List<AnimalDto>> GetAllAnimalsAsync(AnimalFilterDto input)
         {
             var animals = await _repository.GetAllAsync();
-            
+
             var filteredAnimals = animals.AsQueryable();
 
             if (input.AdoptionStatus is not null)
                 filteredAnimals = filteredAnimals.Where(a => a.AdoptionStatus.Equals(input.AdoptionStatus));
 
-            filteredAnimals
+            filteredAnimals = filteredAnimals
                 .Skip(input.SkipCount)
-                .Take(input.MaxResultCount)
-                .ToList();
+                .Take(input.MaxResultCount);
 
-            //falta implementar o sort
-
-            return _mapper.Map<List<AnimalDto>>(filteredAnimals);
+            return _mapper.Map<List<AnimalDto>>(filteredAnimals.ToList());
         }
+
 
         public async Task<AnimalDto?> GetAnimalByIdAsync(long id)
         {

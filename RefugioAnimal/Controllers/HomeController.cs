@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RefugioAnimal.Models;
+using RefugioAnimal.Models.DTOs;
 using RefugioAnimal.Services;
 
 namespace RefugioAnimal.Controllers
@@ -16,7 +17,14 @@ namespace RefugioAnimal.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listAnimals = await _animalService.GetAllAnimalsAsync(8, 0);
+            var filter = new AnimalFilterDto()
+            { 
+                AdoptionStatus = 0,
+                MaxResultCount = 8,
+                SkipCount = 0
+            };
+
+            var listAnimals = await _animalService.GetAllAnimalsAsync(filter);
             var viewModel = new AnimalViewModel
             {
                 ListAnimals = listAnimals

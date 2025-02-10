@@ -5,14 +5,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<head>
-    <style>
-        .row{
-            align-items: center;
-        }
-    </style>
-</head>
-
 <div class="container mt-3">
     <div class="row">
         <div class="col-md-6">
@@ -33,15 +25,15 @@
     </div>
 </div>
 
-@if (Model.ListAnimals is not null && Model.ListAnimals.Any()){
+@if (Model.Animals is not null && Model.Animals.Any()){
     <div class="row px-5 mb-3">
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">Ajude nossos animais</h4>
             <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
         </div>
-            @await Html.PartialAsync("_AnimalList", Model.ListAnimals, new ViewDataDictionary(ViewData)
+            @await Html.PartialAsync("_AnimalList", Model.Animals, new ViewDataDictionary(ViewData)
             {
-            { "MaxItems", Model.ListAnimals.Count }
+            { "MaxItems", Model.Animals.Count }
             })
     </div>
 }
@@ -95,7 +87,7 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/homepage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home-page.css" asp-append-version="true" />
 }
 
 @section Scripts {

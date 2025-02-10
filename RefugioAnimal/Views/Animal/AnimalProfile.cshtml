@@ -6,30 +6,6 @@
     	ViewData["Title"] = "Animal";
 }
 
-<head>
-    <style>
-        .container, .description-animal {
-            max-width: 80%; /* Para garantir que o container ocupe toda a largura disponível */
-        }
-
-        #carouselExampleControls {
-            height: 450px; /* Altura fixa para o carrossel */
-            overflow: hidden; /* Garante que nada ultrapasse a área do carrossel */
-        }
-
-        .carousel-item img {
-            height: 450px; /* A imagem deve preencher a altura do carrossel */
-            width: 100%; /* A imagem ocupa 100% da largura do carrossel */
-            object-fit: cover; /* Assegura que a imagem se ajusta corretamente sem distorcer */
-        }
-
-        .formulario-adocao{
-            max-width: 40%;
-            margin: 0 auto; /* Para centralizar o formulário horizontalmente */
-        }
-    </style>
-</head>
-
 <div class="container">
     <div class="px-5 w-100 mb-5">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -113,3 +89,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Enviar!</button>
 </form>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/animal-profile.css" asp-append-version="true" />
+}

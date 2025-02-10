@@ -27,7 +27,7 @@ namespace RefugioAnimal.Controllers
             var listAnimals = await _animalService.GetAllAnimalsAsync(filter);
             var viewModel = new AnimalViewModel
             {
-                ListAnimals = listAnimals
+                Animals = listAnimals
             };
 
             return View(viewModel);

@@ -8,5 +8,6 @@ namespace RefugioAnimal.Models
         public List<AnimalDto>? Dogs { get; set; }
         public List<AnimalDto>? AdoptedAnimals { get; set; }
         public AnimalDto? RandomAnimal { get; set; }
+        public List<AnimalDto>? Animals { get; set; }
     }
 }

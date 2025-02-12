@@ -1,14 +1,36 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RefugioAnimal.Models;
+using RefugioAnimal.Models.DTOs;
+using RefugioAnimal.Services;
 
 namespace RefugioAnimal.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly AnimalService _animalService;
+
+        public HomeController(AnimalService animalService)
         {
-            return View();
+            _animalService = animalService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var filter = new AnimalFilterDto()
+            { 
+                AdoptionStatus = 0,
+                MaxResultCount = 8,
+                SkipCount = 0
+            };
+
+            var listAnimals = await _animalService.GetAllAnimalsAsync(filter);
+            var viewModel = new AnimalViewModel
+            {
+                Animals = listAnimals
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

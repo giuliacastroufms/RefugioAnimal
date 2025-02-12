@@ -1,9 +1,72 @@
-﻿@using RefugioAnimal.Models.DTOs
+﻿@using RefugioAnimal.Models
 @model AnimalViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="content-section">
+                <img class="me-2 login-background" src="/assets/login-background.svg" alt="background" />
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column align-items-center mt-5">
+            <div class="content-section">
+                <h4>Com a sua ajuda</h4>
+                <h1>Nós podemos salvar os animais que vivem na rua</h1>
+                <p>Abandono de animais nas ruas é um problema real.</p>
+                <p>Escolha adotar e dar a esses animais uma segunda chance.</p>
+                <p>Faça a diferença, salve vidas.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Animals is not null && Model.Animals.Any()){
+    <div class="row px-5 mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">Ajude nossos animais</h4>
+            <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
+        </div>
+            @await Html.PartialAsync("_AnimalList", Model.Animals, new ViewDataDictionary(ViewData)
+            {
+            { "MaxItems", Model.Animals.Count }
+            })
+    </div>
+}
+
+<div class="row px-5 mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="card-title">ONGs e Protetores Parceiros</h4>
+        <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
+        <p>Colocar a lista de ONG e Protetores quando estiver preenchido no banco *preciso entrar em contato com alguma para testarem a aplicação</p>
+    </div>
+</div>
+
+<div class="row px-5 d-flex mb-3">
+    <div class="col-md-6 justify-content-center">
+        <h4 class="card-title">Sobre nós</h4>
+        <p>
+            Somos dois estudantes com o objetivo de facilitar a adoção responsável de animais resgatados em Campo Grande, MS. Percebemos a dificuldade de ONGs e protetores em conectar animais a adotantes conscientes, por isso criamos este site para agilizar o processo e promover o bem-estar animal. Nosso projeto visa não só facilitar a adoção, mas também sensibilizar a população sobre a importância de adotar e cuidar de animais abandonados, contribuindo para uma cidade mais solidária e responsável. Juntos, podemos dar uma nova chance a esses animais!
+        </p>
+        <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Entrar em contato</a>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+                <div class="col-6 mb-4">
+                    <div class="">
+                        <div class="">
+                                <img src="/assets/logo.svg" class="" alt="Imagem">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
 
 <div class="text-center">
     <h1>Bem-vindo à aplicação</h1>
@@ -21,16 +84,10 @@
     }
 </div>
 
-<div class="row px-5 mb-3">
-    <div class="d-flex justify-content-between align-items-center">
-        <h4 class="card-title">Ajude nossos animais</h4>
-        <a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
-    </div>
-</div>
-
 @section Styles {
     <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home-page.css" asp-append-version="true" />
 }
 
 @section Scripts {

@@ -6,9 +6,90 @@
     	ViewData["Title"] = "Animal";
 }
 
-<h1>@Model.Animal.Name</h1>
+<div class="container">
+    <div class="px-5 w-100 mb-5">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    bool isFirst = true;
+                }
+                @foreach (var photo in Model.Animal.Photos)
+                {
+                    <div class="carousel-item @(isFirst ? "active" : "")">
+                        <img src="@photo" class="d-block carousel-img w-100" alt="Foto do - @Model.Animal.Name">
+                    </div>
+                    isFirst = false;
+                }
+            </div>
+            @if (Model.Animal.Photos.Count > 1)
+            {
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            }
+        </div>
+    </div>
+</div>
 
-@if(Model.Animal.Name == "Garfield")
-{
-<h2>@Model.Animal.Specie</h2>
+<div class="description-animal">
+    <h1>@Model.Animal.Name</h1>
+    <h2>@Model.Animal.Specie</h2>
+    <h2>@Model.Animal.BreedDescription</h2>
+    <p>@Model.Animal.Description</p>
+    <p>@Model.Animal.AdoptionStatus</p>
+</div>
+
+<form class="formulario-adocao">
+    <div class ="mb-3">
+        <p>Justificativa</p>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="floatingInput" rows="3"></textarea>
+            <label for="floatingInput">Digite</label>
+
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>Descreva sua morada</p>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="floatingInput" rows="3"></textarea>
+            <label for="floatingInput">Digite</label>
+
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>Possui outros animais? Quantos?</p>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" aria-describedby="emailHelp">
+            <label for="floatingInput">Digite</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>Os animais possuem acesso à rua?</p>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput">
+            <label for="floatingInput">Digite</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>Os animais são vacinados?</p>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput">
+            <label for="floatingInput">Digite</label>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <div id="adption-confirm" class="form-text">Aceitar os termos de responsabilidade e dados corretos seguindo as normas da LGPD</div>
+        <input type="checkbox" class="form-check-input" id="check-adption-confirm">
+        <label class="form-check-label" for="check-adption-confirm">Possuo mais que 18 anos, confirmo a identidade, aceito a responsabilidade, etc...</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar!</button>
+</form>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/animal-profile.css" asp-append-version="true" />
 }

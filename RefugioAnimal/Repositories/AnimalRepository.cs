@@ -23,7 +23,7 @@ namespace RefugioAnimal.Repositories
             await _context.Animals
                 .Include(a => a.Breed)
                 .Include(a => a.Photos)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id.Equals(id));
 
         public async Task AddAsync(Animal animal)
         {
@@ -39,7 +39,7 @@ namespace RefugioAnimal.Repositories
 
         public async Task<bool> AnyAsync(long id)
         {
-            return await _context.Animals.AnyAsync(a => a.Id == id);
+            return await _context.Animals.AnyAsync(a => a.Id.Equals(id));
         }
 
         public async Task DeleteAsync(long id)

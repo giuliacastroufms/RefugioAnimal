@@ -36,12 +36,30 @@
     </div>
 </div>
 
-<div class="description-animal">
-    <h1>@Model.Animal.Name</h1>
-    <h2>@Model.Animal.Specie</h2>
-    <h2>@Model.Animal.BreedDescription</h2>
-    <p>@Model.Animal.Description</p>
-    <p>@Model.Animal.AdoptionStatus</p>
+<div class="container">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+            <h1 class="fw-bold">@Model.Animal.Name</h1>
+            <h2>
+                <span class="badge bg-primary">
+                    @if (Model.Animal.Specie == "Cat")
+                    {
+                        @:Gato
+                    }
+                    else if (Model.Animal.Specie == "Dog")
+                    {
+                        @:Cachorro
+                    }
+                    else
+                    {
+                        @:Outros
+                    }
+                </span>
+            </h2>
+            <h3 class="text-muted">@Model.Animal.BreedDescription</h3>
+            <p class="mt-3 fs-5">@Model.Animal.Description</p>
+        </div>
+    </div>
 </div>
 
 <form class="formulario-adocao">

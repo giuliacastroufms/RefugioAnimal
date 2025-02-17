@@ -22,6 +22,8 @@ namespace RefugioAnimal.Mappings
             CreateMap<UpdateAnimalDto, Animal>()
                 .ForMember(dest => dest.Species, opt => opt.MapFrom(src => Enum.Parse<Species>(src.Specie)))
                 .ForMember(dest => dest.AdoptionStatus, opt => opt.MapFrom(src => Enum.Parse<AdoptionStatus>(src.AdoptionStatus)));
+
+            CreateMap<Adoption, AdoptionDto>();
         }
     }
 }

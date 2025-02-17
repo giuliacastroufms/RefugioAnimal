@@ -9,12 +9,14 @@ namespace RefugioAnimal.Data
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Breed> Breeds { get; set; }
         public DbSet<AnimalPhoto> AnimalPhotos { get; set; }
-
+        public DbSet<AdoptionType> AdoptionTypes { get; set; }
+        public DbSet<Adoption> Adoptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Animal>(entity =>
             {
                 entity.HasKey(e => e.Id);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -35,6 +37,7 @@ namespace RefugioAnimal.Data
             modelBuilder.Entity<Breed>(entity =>
             {
                 entity.HasKey(e => e.Id);
+
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -44,7 +47,39 @@ namespace RefugioAnimal.Data
             modelBuilder.Entity<AnimalPhoto>(entity =>
             {
                 entity.HasKey(e => e.Id);
+
                 entity.Property(e => e.Photo)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<Adoption>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Date)
+                    .IsRequired();
+
+                entity.Property(e => e.Status)
+                    .IsRequired();
+
+                entity.HasOne(e => e.User)
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId);
+
+                entity.HasOne(e => e.Animal)
+                    .WithMany()
+                    .HasForeignKey(e => e.AnimalId);
+
+                entity.HasOne(e => e.AdoptionType)
+                    .WithMany()
+                    .HasForeignKey(e => e.AdoptionTypeId);
+            });
+
+            modelBuilder.Entity<AdoptionType>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Description)
                     .IsRequired();
             });
         }

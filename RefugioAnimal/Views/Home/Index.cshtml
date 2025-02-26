@@ -68,22 +68,6 @@
     </div>
 </div>
 
-<div class="text-center">
-    <h1>Bem-vindo à aplicação</h1>
-
-    <!-- Verifica se existe um valor armazenado em TempData["UserEmail"] -->
-    @if (TempData["UserEmail"] != null)
-    {
-        <!-- Exibe o e-mail do usuário logado, caso TempData tenha o dado -->
-        <p>Usuário logado: <strong>@TempData["UserEmail"]</strong></p>
-    }
-    else
-    {
-        <!-- Mensagem exibida caso nenhum usuário esteja logado -->
-        <p>Nenhum usuário logado.</p>
-    }
-</div>
-
 @section Styles {
     <link rel="stylesheet" href="~/css/animal.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/animal-list.css" asp-append-version="true" />

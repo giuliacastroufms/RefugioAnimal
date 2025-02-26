@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RefugioAnimal.Models.Entities;
 
 namespace RefugioAnimal.Data
 {
-    public class AnimalRefugeDbContext : DbContext
+    public class AnimalRefugeDbContext : IdentityDbContext<User>
     {
         public AnimalRefugeDbContext(DbContextOptions<AnimalRefugeDbContext> options) : base(options) { }
         public DbSet<Animal> Animals { get; set; }
@@ -13,6 +14,15 @@ namespace RefugioAnimal.Data
         public DbSet<Adoption> Adoptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(u => u.Id);
+
+                entity.ToTable("Users");
+            });
+
             modelBuilder.Entity<Animal>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -62,9 +72,9 @@ namespace RefugioAnimal.Data
                 entity.Property(e => e.Status)
                     .IsRequired();
 
-                entity.HasOne(e => e.User)
-                    .WithMany()
-                    .HasForeignKey(e => e.UserId);
+                //entity.HasOne(e => e.User)
+                //    .WithMany()
+                //    .HasForeignKey(e => e.UserId);
 
                 entity.HasOne(e => e.Animal)
                     .WithMany()

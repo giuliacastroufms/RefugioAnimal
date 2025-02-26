@@ -14,14 +14,14 @@ namespace RefugioAnimal.Repositories
 
         public async Task<List<Adoption>> GetAllAsync() =>
             await _context.Adoptions
-                .Include(a => a.User)
+                //.Include(a => a.User)
                 .Include(a => a.Animal)
                 .Include(a => a.AdoptionType)
                 .ToListAsync();
 
         public async Task<Adoption?> GetByIdAsync(long id) =>
             await _context.Adoptions
-                .Include(a => a.User)
+                //.Include(a => a.User)
                 .Include(a => a.Animal)
                 .Include(a => a.AdoptionType)
                 .FirstOrDefaultAsync(a => a.Id.Equals(id));

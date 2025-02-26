@@ -1,15 +1,9 @@
-﻿using RefugioAnimal.Models.Enums;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace RefugioAnimal.Models.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
-        public long Id { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-        public required string CPF { get; set; }
-        public required string PhoneNumber { get; set; }
-        public string? Address { get; set; }
-        public Role Role { get; set; }
+        public required string FullName { get; set; }
     }
 }

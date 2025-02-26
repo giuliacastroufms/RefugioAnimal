@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RefugioAnimal.Models;
 using RefugioAnimal.Models.Enums;
 using RefugioAnimal.Services;
@@ -56,6 +57,7 @@ namespace RefugioAnimal.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> AnimalSpecies()
         {
             var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 1, 0);

@@ -9,7 +9,7 @@
         public required string Status { get; set; }
         public long AdoptionTypeId { get; set; }
 
-        public virtual User? User { get; set; }
+        //public virtual User? User { get; set; }
         public virtual Animal? Animal { get; set; }
         public virtual AdoptionType? AdoptionType { get; set; }
     }

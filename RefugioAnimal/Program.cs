@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RefugioAnimal.Data;
+using RefugioAnimal.Models.Entities;
 using RefugioAnimal.Repositories;
 using RefugioAnimal.Services;
 
@@ -18,6 +21,18 @@ builder.Services.AddScoped<AnimalService>();
 
 builder.Services.AddDbContext<AnimalRefugeDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+    .AddEntityFrameworkStores<AnimalRefugeDbContext>()
+    .AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 
@@ -39,5 +54,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
 app.Run();

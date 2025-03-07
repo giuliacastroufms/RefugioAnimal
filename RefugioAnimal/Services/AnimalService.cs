@@ -92,31 +92,16 @@ namespace RefugioAnimal.Services
         {
             var animals = await _repository.GetAllAsync();
 
-            List<Animal> filteredAnimals;
+            var filteredAnimals = animals
+                .Where(a => a.AdoptionStatus == AdoptionStatus.Available && (species == null || a.Species == species))
+                .ToList();
 
-            if (species is not null)
-            {
-                filteredAnimals = animals
-                    .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
-                    .Where(a => a.Species.Equals(species))
-                    .ToList();
-            }
-            else
-            {
-                filteredAnimals = animals
-                    .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
-                    .ToList();
-            }
+            if (!filteredAnimals.Any()) return null;
 
-            if (filteredAnimals is null || !filteredAnimals.Any())
-            {
-                return null;
-            }
-
-            var random = new Random();
-            var randomAnimal = filteredAnimals.OrderBy(a => random.Next()).FirstOrDefault();
-            return randomAnimal is null ? null : _mapper.Map<AnimalDto>(randomAnimal);
+            var randomAnimal = filteredAnimals[Random.Shared.Next(filteredAnimals.Count)];
+            return _mapper.Map<AnimalDto>(randomAnimal);
         }
+
 
     }
 }

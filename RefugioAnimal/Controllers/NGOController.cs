@@ -8,5 +8,10 @@ namespace RefugioAnimal.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Donations()
+        {
+            return View();
+        }
     }
 }

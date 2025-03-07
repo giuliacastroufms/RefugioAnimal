@@ -20,7 +20,7 @@ namespace RefugioAnimal.Controllers
             var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 4, 0);
             var dogs = await _animalService.GetAnimalsBySpecieAsync(Species.Dog, 8, 0);
             var adoptedAnimals = await _animalService.GetAdoptedAnimalsAsync(4);
-            var randomAnimal = await _animalService.GetRandomAnimalAsync();
+            var randomAnimal = await _animalService.GetRandomAnimalAsync(null);
 
             var viewModel = new AnimalViewModel
             {
@@ -57,7 +57,6 @@ namespace RefugioAnimal.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         public async Task<IActionResult> AnimalSpecies()
         {
             var cats = await _animalService.GetAnimalsBySpecieAsync(Species.Cat, 1, 0);

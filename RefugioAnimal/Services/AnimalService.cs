@@ -69,7 +69,7 @@ namespace RefugioAnimal.Services
         {
             var animals = await _repository.GetAllAsync();
             var filteredAnimals = animals
-                .Where(a => a.Species.Equals(species) )
+                .Where(a => a.Species.Equals(species))
                 .Where(a => a.AdoptionStatus.Equals(adoptionStatus))
                 .Take(maxItems)
                 .ToList();
@@ -88,12 +88,25 @@ namespace RefugioAnimal.Services
             return _mapper.Map<List<AnimalDto>>(filteredAnimals);
         }
 
-        public async Task<AnimalDto?> GetRandomAnimalAsync()
+        public async Task<AnimalDto?> GetRandomAnimalAsync(Species? species)
         {
             var animals = await _repository.GetAllAsync();
-            var filteredAnimals = animals
-                .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
-                .ToList();
+
+            List<Animal> filteredAnimals;
+
+            if (species is not null)
+            {
+                filteredAnimals = animals
+                    .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
+                    .Where(a => a.Species.Equals(species))
+                    .ToList();
+            }
+            else
+            {
+                filteredAnimals = animals
+                    .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
+                    .ToList();
+            }
 
             if (filteredAnimals is null || !filteredAnimals.Any())
             {

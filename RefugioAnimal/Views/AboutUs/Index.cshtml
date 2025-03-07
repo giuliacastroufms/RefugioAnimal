@@ -1,0 +1,75 @@
+﻿@using RefugioAnimal.Models
+@model RefugioAnimal.Views.Creators.IndexModel
+@{
+	ViewData["Title"] = "Sobre Nós";
+}
+
+<div class="justify-content-center">
+    <h4 class="">Sobre nós</h4>
+    <p>
+        Somos dois estudantes com o objetivo de facilitar a adoção responsável de animais resgatados em Campo Grande, MS. Percebemos a dificuldade de ONGs e protetores em conectar animais a adotantes conscientes, por isso criamos este site para agilizar o processo e promover o bem-estar animal. Nosso projeto visa não só facilitar a adoção, mas também sensibilizar a população sobre a importância de adotar e cuidar de animais abandonados, contribuindo para uma cidade mais solidária e responsável. Juntos, podemos dar uma nova chance a esses animais!
+    </p>
+</div>
+
+<div class="d-flex px-5 animal-carousel w-100 mb-5">
+    <div class="col-5 pb-5 align-self-center">
+
+        <h2 class="fw-bold mt-5 pt-5">Nome Fulano</h2>
+        <p class="mt-4 mb-3">Descrição Fulano</p>
+        <button type="button" class="btn btn-dark w-50" onclick="">Visite o Linkedin</button>
+    </div>
+
+    <div class="col-7 px-5">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/assets/logo.svg" class="d-block carousel-img w-100" alt="Foto do Fulano">
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/cat-crying.png" class="d-block carousel-img w-100" alt="Outra foto">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row px-5 mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="card-title">Outros Trabalhos / Voluntariados</h4>
+    </div>
+   <p>Card com fotos e links para outros trabalhos e voluntariados</p>
+</div>
+
+<form class="formulario-contato">
+    <div class="mb-3">
+        <p>Nome</p>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput">
+            <label for="floatingInput">Digite</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>E-mail</p>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput">
+            <label for="floatingInput">Digite</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <p>Mensagem</p>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="floatingInput" rows="3"></textarea>
+            <label for="floatingInput">Digite</label>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar!</button>
+</form>

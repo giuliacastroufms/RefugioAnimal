@@ -1,0 +1,62 @@
+﻿@using RefugioAnimal.Models
+@model RefugioAnimal.Views.NGO.DonationsModel
+@{
+	ViewData["Title"] = "Doações";
+}
+
+<div class="container">
+	<h4>Doações Para ONGs e Protetores</h4>
+	<div class="">
+		<p>
+			As Organizações Não Governamentais (ONGs) e os Protetores de Animais realizam um trabalho essencial para salvar vidas, promover bem-estar e lutar pelos direitos dos animais. Atuam em resgates, tratamentos, cuidados, adoções, campanhas de conscientização, entre outras ações, contando com a colaboração de voluntários, doadores, apoiadores e profissionais engajados em fazer a diferença na vida dos animais e da sociedade. 🐾❤️
+		</p>
+	</div>
+	<div class="">
+		<p>
+			As ONGs e os Protetores independentes dependem de doações para manter suas atividades, garantir os cuidados necessários aos animais e viabilizar a realização de projetos e ações em prol dos animais. Qualquer contribuição, por menor que seja, faz a diferença e pode salvar vidas! 🐾❤️
+		</p>
+	</div>
+	<div class="">
+		<p>
+			Se você deseja colaborar com uma ONG ou um Protetor, seja como voluntário, doador, apoiador ou adotante, conheça os parceiros do Refúgio Animal e ajude a transformar vidas! 🐾❤️
+		</p>
+	</div>
+</div>
+
+<div class="container mt-3">
+	<div class="row">
+		<div class="col-md-6 d-flex flex-column align-items-center mt-5">
+			<div class="content-section">
+				<h4>Suporte os Criadores</h4>
+				<p>
+					Somos dois estudantes com o objetivo de facilitar a adoção responsável de animais resgatados em Campo Grande, MS. Percebemos a dificuldade de ONGs e protetores em conectar animais a adotantes conscientes, por isso criamos este site para agilizar o processo e promover o bem-estar animal. Nosso projeto visa não só facilitar a adoção, mas também sensibilizar a população sobre a importância de adotar e cuidar de animais abandonados, contribuindo para uma cidade mais solidária e responsável. Juntos, podemos dar uma nova chance a esses animais!
+				</p>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="content-section">
+				<img class="me-2 login-background" src="/assets/logo.svg" alt="background" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row px-5 mb-3">
+		<div class="d-flex justify-content-between align-items-center">
+			<h4 class="card-title">ONGs</h4>
+			<a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
+		</div>
+		<p>Card com uma foto que represente a ONG ou o Protetor + botão (ou card clicável) que manda para pagina de doação da ONG</p>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row px-5 mb-3">
+		<div class="d-flex justify-content-between align-items-center">
+			<h4 class="card-title">Protetores</h4>
+			<a class="pe-5 card-link" asp-area="" asp-controller="Animal" asp-action="Index">Ver mais...</a>
+		</div>
+		<p>Card com uma foto que represente a ONG ou o Protetor + botão (ou card clicável) que manda para pagina de doação do Protetor</p>
+	</div>
+</div>

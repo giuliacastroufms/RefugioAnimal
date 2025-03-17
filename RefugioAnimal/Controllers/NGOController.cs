@@ -4,9 +4,10 @@ namespace RefugioAnimal.Controllers
 {
     public class NGOController : Controller
     {
-        public async Task<IActionResult> NGOAndProtector()
+        public IActionResult NGOAndProtector()
         {
             return View();
         }
+
     }
 }

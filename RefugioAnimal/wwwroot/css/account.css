@@ -15,6 +15,16 @@
     opacity: .9;
 }
 
+.account-box-register {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    max-width: 800px;
+    width: 100%;
+    opacity: .9;
+}
+
 .btn {
     color: #fff;
     background-color: #A8D4B9;

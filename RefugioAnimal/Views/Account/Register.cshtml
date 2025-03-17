@@ -7,30 +7,93 @@
 }
 
 <div class="account-container">
-    <div class="account-box">
+    <div class="account-box-register">
         <h2 class="text-center mb-4">Cadastrar</h2>
         <form asp-action="Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="UserType" class="form-label"></label>
+                    <select asp-for="UserType" class="form-control" id="userType">
+                        <option value="DonorProtector">Pessoa Física</option>
+                        <option value="NGO">Pessoa Jurídica</option>
+                    </select>
+                    <span asp-validation-for="UserType" class="text-danger"></span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label asp-for="ConfirmPassword" class="form-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+            <div id="donorProtectorFields" class="hidden">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CPF" class="form-label"></label>
+                        <input asp-for="CPF" class="form-control" />
+                        <span asp-validation-for="CPF" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
+
+            <div id="ngoFields" class="hidden">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CNPJ" class="form-label"></label>
+                        <input asp-for="CNPJ" class="form-control" />
+                        <span asp-validation-for="CNPJ" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Responsible" class="form-label"></label>
+                        <input asp-for="Responsible" class="form-control" />
+                        <span asp-validation-for="Responsible" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ResponsiblePhoneNumber" class="form-label"></label>
+                        <input asp-for="ResponsiblePhoneNumber" class="form-control" />
+                        <span asp-validation-for="ResponsiblePhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
             <input type="submit" value="Cadastrar" class="btn w-100 p-2" />
             <p class="text-center mt-2">
                 Já tem uma conta? <a asp-controller="Account" asp-action="Login" class="text-decoration-none">Entrar</a>
@@ -42,8 +105,22 @@
     </div>
 </div>
 
+
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
-    }
+<script>
+    $(document).ready(function () {
+        const $userTypeSelect = $("#userType");
+        const donorProtectorFields = $("#donorProtectorFields");
+        const $ngoFields = $("#ngoFields");
+
+        function toggleFields() {
+            const selectedType = $userTypeSelect.val();
+            donorProtectorFields.toggle(selectedType === "DonorProtector");
+            $ngoFields.toggle(selectedType === "NGO");
+        }
+
+        toggleFields();
+        $userTypeSelect.change(toggleFields);
+    });
+</script>
 }

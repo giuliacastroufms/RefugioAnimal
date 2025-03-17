@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RefugioAnimal.Data;
 
@@ -11,9 +12,11 @@ using RefugioAnimal.Data;
 namespace RefugioAnimal.Migrations
 {
     [DbContext(typeof(AnimalRefugeDbContext))]
-    partial class AnimalRefugeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250227234528_AddingUserTypes")]
+    partial class AddingUserTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,7 +289,7 @@ namespace RefugioAnimal.Migrations
                     b.ToTable("Breeds");
                 });
 
-            modelBuilder.Entity("RefugioAnimal.Models.Entities.DonorProtector", b =>
+            modelBuilder.Entity("RefugioAnimal.Models.Entities.Donor", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,7 +315,7 @@ namespace RefugioAnimal.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("DonorProtectors");
+                    b.ToTable("Donors");
                 });
 
             modelBuilder.Entity("RefugioAnimal.Models.Entities.NGO", b =>
@@ -350,6 +353,35 @@ namespace RefugioAnimal.Migrations
                         .IsUnique();
 
                     b.ToTable("NGOs");
+                });
+
+            modelBuilder.Entity("RefugioAnimal.Models.Entities.Protector", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Protectors");
                 });
 
             modelBuilder.Entity("RefugioAnimal.Models.Entities.User", b =>
@@ -523,11 +555,11 @@ namespace RefugioAnimal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RefugioAnimal.Models.Entities.DonorProtector", b =>
+            modelBuilder.Entity("RefugioAnimal.Models.Entities.Donor", b =>
                 {
                     b.HasOne("RefugioAnimal.Models.Entities.User", "User")
-                        .WithOne("DonorProtector")
-                        .HasForeignKey("RefugioAnimal.Models.Entities.DonorProtector", "UserId")
+                        .WithOne("Donor")
+                        .HasForeignKey("RefugioAnimal.Models.Entities.Donor", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -545,6 +577,17 @@ namespace RefugioAnimal.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RefugioAnimal.Models.Entities.Protector", b =>
+                {
+                    b.HasOne("RefugioAnimal.Models.Entities.User", "User")
+                        .WithOne("Protector")
+                        .HasForeignKey("RefugioAnimal.Models.Entities.Protector", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RefugioAnimal.Models.Entities.Animal", b =>
                 {
                     b.Navigation("Photos");
@@ -552,9 +595,11 @@ namespace RefugioAnimal.Migrations
 
             modelBuilder.Entity("RefugioAnimal.Models.Entities.User", b =>
                 {
-                    b.Navigation("DonorProtector");
+                    b.Navigation("Donor");
 
                     b.Navigation("NGO");
+
+                    b.Navigation("Protector");
                 });
 #pragma warning restore 612, 618
         }

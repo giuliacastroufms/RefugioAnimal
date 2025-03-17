@@ -12,6 +12,8 @@ namespace RefugioAnimal.Data
         public DbSet<AnimalPhoto> AnimalPhotos { get; set; }
         public DbSet<AdoptionType> AdoptionTypes { get; set; }
         public DbSet<Adoption> Adoptions { get; set; }
+        public DbSet<DonorProtector> DonorProtectors { get; set; }
+        public DbSet<NGO> NGOs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -19,8 +21,17 @@ namespace RefugioAnimal.Data
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(u => u.Id);
-
                 entity.ToTable("Users");
+
+                entity.HasOne(u => u.DonorProtector)
+                    .WithOne(d => d.User)
+                    .HasForeignKey<DonorProtector>(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(u => u.NGO)
+                    .WithOne(n => n.User)
+                    .HasForeignKey<NGO>(n => n.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Animal>(entity =>
@@ -66,15 +77,15 @@ namespace RefugioAnimal.Data
             {
                 entity.HasKey(e => e.Id);
 
+                entity.HasOne(e => e.User)
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId);
+
                 entity.Property(e => e.Date)
                     .IsRequired();
 
                 entity.Property(e => e.Status)
                     .IsRequired();
-
-                //entity.HasOne(e => e.User)
-                //    .WithMany()
-                //    .HasForeignKey(e => e.UserId);
 
                 entity.HasOne(e => e.Animal)
                     .WithMany()
@@ -91,6 +102,41 @@ namespace RefugioAnimal.Data
 
                 entity.Property(e => e.Description)
                     .IsRequired();
+            });
+
+            modelBuilder.Entity<NGO>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.CNPJ)
+                    .IsRequired()
+                    .HasMaxLength(18)
+                    .HasColumnType("varchar(18)");
+
+                entity.Property(e => e.ResponsiblePhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnType("varchar(15)");
+
+                entity.HasOne(e => e.User)
+                    .WithOne(u => u.NGO)
+                    .HasForeignKey<NGO>(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<DonorProtector>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.CPF)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .HasColumnType("varchar(14)");
+
+                entity.HasOne(e => e.User)
+                    .WithOne(u => u.DonorProtector)
+                    .HasForeignKey<DonorProtector>(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

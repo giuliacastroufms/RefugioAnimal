@@ -9,5 +9,9 @@ namespace RefugioAnimal.Controllers
             return View();
         }
 
+        public IActionResult Donations()
+        {
+            return View();
+        }
     }
 }

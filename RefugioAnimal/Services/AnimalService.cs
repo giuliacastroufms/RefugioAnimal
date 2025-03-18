@@ -69,7 +69,7 @@ namespace RefugioAnimal.Services
         {
             var animals = await _repository.GetAllAsync();
             var filteredAnimals = animals
-                .Where(a => a.Species.Equals(species) )
+                .Where(a => a.Species.Equals(species))
                 .Where(a => a.AdoptionStatus.Equals(adoptionStatus))
                 .Take(maxItems)
                 .ToList();
@@ -88,22 +88,20 @@ namespace RefugioAnimal.Services
             return _mapper.Map<List<AnimalDto>>(filteredAnimals);
         }
 
-        public async Task<AnimalDto?> GetRandomAnimalAsync()
+        public async Task<AnimalDto?> GetRandomAnimalAsync(Species? species)
         {
             var animals = await _repository.GetAllAsync();
+
             var filteredAnimals = animals
-                .Where(a => a.AdoptionStatus.Equals(AdoptionStatus.Available))
+                .Where(a => a.AdoptionStatus == AdoptionStatus.Available && (species == null || a.Species == species))
                 .ToList();
 
-            if (filteredAnimals is null || !filteredAnimals.Any())
-            {
-                return null;
-            }
+            if (!filteredAnimals.Any()) return null;
 
-            var random = new Random();
-            var randomAnimal = filteredAnimals.OrderBy(a => random.Next()).FirstOrDefault();
-            return randomAnimal is null ? null : _mapper.Map<AnimalDto>(randomAnimal);
+            var randomAnimal = filteredAnimals[Random.Shared.Next(filteredAnimals.Count)];
+            return _mapper.Map<AnimalDto>(randomAnimal);
         }
+
 
     }
 }

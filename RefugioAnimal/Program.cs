@@ -15,9 +15,16 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Repositories
 builder.Services.AddScoped<AnimalRepository>();
+builder.Services.AddScoped<AdoptionRepository>();
+builder.Services.AddScoped<DonorProtectorRepository>();
+builder.Services.AddScoped<NGORepository>();
+
 
 // Services
 builder.Services.AddScoped<AnimalService>();
+builder.Services.AddScoped<AdoptionService>();
+builder.Services.AddScoped<DonorProtectorService>();
+builder.Services.AddScoped<NGOService>();
 
 builder.Services.AddDbContext<AnimalRefugeDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -25,6 +32,10 @@ builder.Services.AddDbContext<AnimalRefugeDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;

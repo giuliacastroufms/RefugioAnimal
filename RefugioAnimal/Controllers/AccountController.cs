@@ -1,17 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RefugioAnimal.Models;
+using RefugioAnimal.Models.DTOs;
 using RefugioAnimal.Models.Entities;
+using RefugioAnimal.Models.Enums;
+using RefugioAnimal.Services;
 
 public class AccountController : Controller
 {
     private readonly SignInManager<User> signInManager;
     private readonly UserManager<User> userManager;
+    private readonly DonorProtectorService donorProtectorService;
+    private readonly NGOService ngoService;
 
-    public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+    public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, DonorProtectorService donorProtectorService, NGOService ngoService)
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
+        this.donorProtectorService = donorProtectorService;
+        this.ngoService = ngoService;
     }
 
     [HttpGet]
@@ -52,17 +59,42 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            User users = new User
+            var user = new User
             {
                 FullName = model.Name,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
+                PhoneNumber = model.PhoneNumber
             };
 
-            var result = await userManager.CreateAsync(users, model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                switch (model.UserType)
+                {
+                    case UserType.DonorProtector:
+                        var donorProtector = new DonorProtectorDto
+                        {
+                            UserId = user.Id,
+                            CPF = !string.IsNullOrEmpty(model.CPF) ? model.CPF : string.Empty,
+                            Address = model.Address
+                        };
+                        await donorProtectorService.CreateDonorProtectorAsync(donorProtector);
+                        break;
+
+                    case UserType.NGO:
+                        var ngo = new NGODto
+                        {
+                            UserId = user.Id,
+                            CNPJ = !string.IsNullOrEmpty(model.CNPJ) ? model.CNPJ : string.Empty,
+                            Responsible = model.Responsible,
+                            ResponsiblePhoneNumber = model.ResponsiblePhoneNumber,
+                            Address = model.Address
+                        };
+                        await ngoService.CreateNGOAsync(ngo);
+                        break;
+                }
                 return RedirectToAction("Login", "Account");
             }
             else
@@ -71,12 +103,11 @@ public class AccountController : Controller
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
-                return View(model);
             }
         }
         return View(model);
     }
+
 
     [HttpGet]
     public IActionResult VerifyEmail()

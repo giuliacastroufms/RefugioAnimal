@@ -11,7 +11,7 @@ RefugioAnimal é um projeto Razor Pages que ajuda a gerenciar animais para adoç
 ## Configuração do Projeto
 
 ### 1. Clone o Repositório
-Clone o repositório para sua máquina local usando o comando:
+Clone o repositório para sua máquina local usando o comando: git clone https://jp2024Dev@dev.azure.com/jp2024Dev/Ref%C3%BAgio%20Animal/_git/RefugioAnimal
 
 ### 2. Abra o Projeto no Visual Studio
 Abra o Visual Studio 2022 e carregue o projeto `RefugioAnimal.sln`.
